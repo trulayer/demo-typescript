@@ -1,0 +1,39 @@
+{
+  "name": "trulayer-demo-typescript",
+  "version": "0.0.0",
+  "private": true,
+  "description": "End-to-end TypeScript examples for the TruLayer AI SDK",
+  "type": "module",
+  "scripts": {
+    "example": "tsx",
+    "basic-trace": "tsx examples/basic-trace.ts",
+    "openai-auto": "tsx examples/openai-auto.ts",
+    "anthropic-auto": "tsx examples/anthropic-auto.ts",
+    "rag-pipeline": "tsx examples/rag-pipeline.ts",
+    "agent": "tsx examples/agent.ts",
+    "langchain-chain": "tsx examples/langchain-chain.ts",
+    "streaming": "tsx examples/streaming.ts",
+    "feedback": "tsx examples/feedback.ts",
+    "run-all": "tsx examples/run-all.ts",
+    "mock-server": "tsx examples/mock-server.ts",
+    "test": "vitest run",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@trulayer/sdk": "file:../client-typescript",
+    "dotenv": "^16.4.5",
+    "openai": "^4.67.0",
+    "@anthropic-ai/sdk": "^0.36.0",
+    "@langchain/core": "^0.3.0",
+    "@langchain/openai": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
