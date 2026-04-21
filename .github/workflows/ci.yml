@@ -10,7 +10,22 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out demo-typescript
+        uses: actions/checkout@v4
+        with:
+          path: demo-typescript
+
+      # The demo repo installs `@trulayer/sdk` via a sibling path
+      # (`file:../client-typescript`) until the SDK is published to npm.
+      # Check the SDK out alongside this repo so `pnpm install` can
+      # resolve it. Once the package is on npm, drop this step and switch
+      # `package.json` to a version specifier.
+      - name: Check out client-typescript (SDK source)
+        uses: actions/checkout@v4
+        with:
+          repository: trulayer/client-typescript
+          path: client-typescript
+          token: ${{ secrets.CLIENT_TYPESCRIPT_TOKEN }}
 
       - uses: pnpm/action-setup@v4
         with:
@@ -20,13 +35,18 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-dependency-path: demo-typescript/pnpm-lock.yaml
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        working-directory: demo-typescript
+        run: pnpm install --frozen-lockfile
 
       - name: Type check
+        working-directory: demo-typescript
         run: pnpm type-check
 
       - name: Smoke tests
-        run: pnpm test
+        working-directory: demo-typescript
         env:
           TRULAYER_DRY_RUN: 'true'
+        run: pnpm test
