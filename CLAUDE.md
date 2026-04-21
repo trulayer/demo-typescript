@@ -9,7 +9,7 @@ End-to-end runnable TypeScript/Node.js examples demonstrating `@trulayer/sdk` in
 - Node.js 22+
 - pnpm
 - TypeScript (strict mode)
-- `@trulayer/sdk` — TruLayer TypeScript SDK (from `client-typescript`)
+- `@trulayer/sdk` — TruLayer TypeScript SDK
 - `openai`, `@anthropic-ai/sdk`, `ai` (Vercel AI SDK)
 - `tsx` — run TypeScript files directly
 
@@ -54,3 +54,7 @@ tsconfig.json
 - Mocked provider responses via `vi.mock`
 
 All examples must pass with `pnpm test`.
+
+## Public Repository Policy
+
+This repository ships to TruLayer customers. Do not introduce references to internal code, internal repositories (e.g. the TruLayer API service or dashboard), internal planning documents, internal Linear issue content, or internal architectural details. Refer to the platform as "TruLayer" or "the TruLayer API" — not as specific internal components. If in doubt, leave it out.
