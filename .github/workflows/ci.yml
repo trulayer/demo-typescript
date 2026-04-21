@@ -2,9 +2,13 @@ name: CI
 
 on:
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
-    branches: ['**']
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   test:
@@ -60,3 +64,10 @@ jobs:
         env:
           TRULAYER_DRY_RUN: 'true'
         run: pnpm test
+
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - run: echo "All required checks passed"
