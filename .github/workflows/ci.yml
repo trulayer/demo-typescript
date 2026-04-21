@@ -35,9 +35,19 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          cache-dependency-path: demo-typescript/pnpm-lock.yaml
+          cache-dependency-path: |
+            demo-typescript/pnpm-lock.yaml
+            client-typescript/pnpm-lock.yaml
 
-      - name: Install dependencies
+      - name: Install SDK dependencies
+        working-directory: client-typescript
+        run: pnpm install --frozen-lockfile
+
+      - name: Build SDK
+        working-directory: client-typescript
+        run: pnpm build
+
+      - name: Install demo dependencies
         working-directory: demo-typescript
         run: pnpm install --frozen-lockfile
 
