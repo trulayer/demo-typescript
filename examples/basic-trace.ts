@@ -76,7 +76,4 @@ export async function run(): Promise<string> {
   return traceId
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const id = await run()
-  console.log(`basic-trace: emitted trace ${id}`)
-}
+run().catch(console.error)

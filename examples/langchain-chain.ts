@@ -76,7 +76,7 @@ class TruLayerLangChainHandler extends BaseCallbackHandler {
     if (!entry) return
     this.pending.delete(runId)
 
-    const span = new SpanContext(this.trace.data.id, 'langchain.llm', 'llm')
+    const span = new SpanContext(this.trace, 'langchain.llm', 'llm')
     span.setInput(entry.input)
     if (entry.model) span.setModel(entry.model)
 
@@ -105,7 +105,7 @@ class TruLayerLangChainHandler extends BaseCallbackHandler {
     if (!entry) return
     this.pending.delete(runId)
 
-    const span = new SpanContext(this.trace.data.id, 'langchain.llm', 'llm')
+    const span = new SpanContext(this.trace, 'langchain.llm', 'llm')
     span.setInput(entry.input)
     if (entry.model) span.setModel(entry.model)
     span.data.error = true
@@ -196,7 +196,11 @@ export async function run(): Promise<string> {
     'langchain-qa',
     async (t) => {
       t.setInput(question)
-      const handler = new TruLayerLangChainHandler(t)
+      // The trace callback receives `TraceContext | NoopTraceContext`;
+      // the handler only uses the concrete `TraceContext` shape. Cast
+      // through `unknown` — in dry-run mode the noop context makes the
+      // callback handler a no-op, which is the intended behaviour.
+      const handler = new TruLayerLangChainHandler(t as unknown as TraceContext)
       const answer = await chain.invoke({ question }, { callbacks: [handler] })
       t.setOutput(String(answer).trim())
       return t.data.id

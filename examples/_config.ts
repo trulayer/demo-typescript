@@ -14,8 +14,12 @@ import Anthropic from '@anthropic-ai/sdk'
 import { init, type TruLayer } from '@trulayer/sdk'
 
 export function isMockMode(): boolean {
-  const v = (process.env.TRULAYER_DEMO_MOCK ?? '').toLowerCase()
-  return v === '1' || v === 'true' || v === 'yes'
+  const mock = (process.env.TRULAYER_DEMO_MOCK ?? '').toLowerCase()
+  const dryRun = (process.env.TRULAYER_DRY_RUN ?? '').toLowerCase()
+  return (
+    mock === '1' || mock === 'true' || mock === 'yes' ||
+    dryRun === '1' || dryRun === 'true' || dryRun === 'yes'
+  )
 }
 
 export function initClient(): TruLayer {
@@ -26,7 +30,7 @@ export function initClient(): TruLayer {
   return init({
     apiKey: process.env.TRULAYER_API_KEY ?? 'tl_demo',
     projectName,
-    endpoint: process.env.TRULAYER_ENDPOINT ?? 'http://127.0.0.1:8080',
+    endpoint: process.env.TRULAYER_ENDPOINT ?? 'https://api.trulayer.ai',
     flushInterval: 200,
   })
 }

@@ -57,7 +57,4 @@ export async function run(): Promise<{ traceId: string; label: string }> {
   return { traceId, label: 'good' }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const { traceId, label } = await run()
-  console.log(`feedback: trace=${traceId} label=${label}`)
-}
+run().catch(console.error)

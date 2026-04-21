@@ -2,7 +2,7 @@
 
 Runnable, end-to-end TypeScript / Node.js examples that show how to
 trace AI applications with the
-[`@trulayer/sdk`](../client-typescript) package. Every example emits
+[`@trulayer/sdk`](https://www.npmjs.com/package/@trulayer/sdk) package. Every example emits
 real traces and spans; `feedback.ts` also posts user feedback against
 a trace.
 
@@ -20,7 +20,7 @@ Set in `.env` at minimum:
 ```
 TRULAYER_API_KEY=tl_...
 TRULAYER_PROJECT_NAME=my-project
-TRULAYER_ENDPOINT=https://api.trulayer.ai   # or http://127.0.0.1:8080 for local dev
+TRULAYER_ENDPOINT=https://api.trulayer.ai
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
 ```

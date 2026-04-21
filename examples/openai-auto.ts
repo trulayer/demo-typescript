@@ -57,7 +57,4 @@ export async function run(): Promise<string[]> {
   return traceIds
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const ids = await run()
-  console.log(`openai-auto: emitted ${ids.length} traces -> ${ids.join(', ')}`)
-}
+run().catch(console.error)
