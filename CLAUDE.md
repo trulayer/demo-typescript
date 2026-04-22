@@ -13,6 +13,16 @@ End-to-end runnable TypeScript/Node.js examples demonstrating `@trulayer/sdk` in
 - `openai`, `@anthropic-ai/sdk`, `ai` (Vercel AI SDK)
 - `tsx` — run TypeScript files directly
 
+## Merge Conflict Policy
+
+**Merge conflicts are the engineer's responsibility.** Before opening a PR (and again before merging), rebase onto the latest `main` and resolve all conflicts:
+
+```bash
+git fetch origin && git rebase origin/main
+```
+
+Do not open a PR with a conflicting branch. If a conflict arises after the PR is open because `main` moved, the PR author owns the rebase — not the reviewer or TPM.
+
 ## Key Commands
 
 ```bash
