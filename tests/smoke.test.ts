@@ -47,11 +47,11 @@ describe('demo examples', () => {
     const t = traces[traces.length - 1]!
     expect(t.project_id).toBe('test-project')
     expect(t.tags).toEqual(expect.arrayContaining(['demo', 'basic-trace']))
-    const spans = t.spans as Array<{ name: string; span_type: string }>
+    const spans = t.spans as Array<{ name: string; type: string }>
     expect(spans.map((s) => s.name)).toEqual(
       expect.arrayContaining(['retrieve-context', 'openai.chat']),
     )
-    expect(spans.find((s) => s.name === 'openai.chat')?.span_type).toBe('llm')
+    expect(spans.find((s) => s.name === 'openai.chat')?.type).toBe('llm')
   })
 
   it('openai-auto emits one trace per question with an openai.chat span', async () => {
@@ -74,10 +74,10 @@ describe('demo examples', () => {
 
     const traces = allTraces()
     expect(traces.length).toBeGreaterThanOrEqual(1)
-    const spans = traces[traces.length - 1]!.spans as Array<{ name: string; span_type: string }>
+    const spans = traces[traces.length - 1]!.spans as Array<{ name: string; type: string }>
     const lc = spans.find((s) => s.name === 'langchain.llm')
     expect(lc).toBeDefined()
-    expect(lc?.span_type).toBe('llm')
+    expect(lc?.type).toBe('llm')
   })
 
   it('anthropic-auto emits a trace with an anthropic.messages span', async () => {
@@ -107,7 +107,7 @@ describe('demo examples', () => {
     const traces = allTraces()
     expect(traces.length).toBeGreaterThanOrEqual(1)
     const spanTypes = new Set(
-      (traces[traces.length - 1]!.spans as Array<{ span_type: string }>).map((s) => s.span_type),
+      (traces[traces.length - 1]!.spans as Array<{ type: string }>).map((s) => s.type),
     )
     expect(spanTypes.has('tool')).toBe(true)
     expect(spanTypes.has('llm')).toBe(true)
@@ -123,13 +123,13 @@ describe('demo examples', () => {
 
     const traces = allTraces()
     expect(traces.length).toBeGreaterThanOrEqual(1)
-    const spans = traces[traces.length - 1]!.spans as Array<{ name: string; span_type: string }>
+    const spans = traces[traces.length - 1]!.spans as Array<{ name: string; type: string }>
     const names = spans.map((s) => s.name)
     expect(names).toEqual(
       expect.arrayContaining(['vercel-ai.streamText', 'vercel-ai.generateObject']),
     )
     for (const s of spans) {
-      expect(s.span_type).toBe('llm')
+      expect(s.type).toBe('llm')
     }
   })
 
@@ -142,11 +142,11 @@ describe('demo examples', () => {
 
     const traces = allTraces()
     expect(traces.length).toBeGreaterThanOrEqual(1)
-    const spans = traces[traces.length - 1]!.spans as Array<{ name: string; span_type: string }>
+    const spans = traces[traces.length - 1]!.spans as Array<{ name: string; type: string }>
     const names = spans.map((s) => s.name)
     expect(names).toEqual(expect.arrayContaining(['validate-input', 'openai.chat']))
-    expect(spans.find((s) => s.name === 'openai.chat')?.span_type).toBe('llm')
-    expect(spans.find((s) => s.name === 'validate-input')?.span_type).toBe('tool')
+    expect(spans.find((s) => s.name === 'openai.chat')?.type).toBe('llm')
+    expect(spans.find((s) => s.name === 'validate-input')?.type).toBe('tool')
   })
 
   it('feedback flow: trace is ingested and feedback references it', async () => {
