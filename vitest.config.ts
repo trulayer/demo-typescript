@@ -8,5 +8,10 @@ export default defineConfig({
     // examples share module state (process.env, singletons).
     fileParallelism: false,
     sequence: { concurrent: false },
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+      include: ['examples/**/*.ts'],
+    },
   },
 })
