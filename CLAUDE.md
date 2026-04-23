@@ -73,6 +73,10 @@ All examples must pass with `pnpm test`.
 
 Every pull request must pass CI before it can be merged. If CI fails, the engineer who opened the PR owns the fix — not a reviewer, not a follow-up task. Don't merge with failing CI. Don't bypass with `--admin` or `--no-verify`. If a check is flaky, fix it or remove it — don't skip it.
 
+## Shell Conventions
+
+**Never use `cd <path> && git <command>`** — use `git -C <path> <command>` instead. The `cd` form triggers a Claude Code safety prompt that interrupts automated work.
+
 ## Public Repository Policy
 
 This repository ships to TruLayer customers. Do not introduce references to internal code, internal repositories (e.g. the TruLayer API service or dashboard), internal planning documents, internal Linear issue content, or internal architectural details. Refer to the platform as "TruLayer" or "the TruLayer API" — not as specific internal components. If in doubt, leave it out.
