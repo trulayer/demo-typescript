@@ -1,5 +1,7 @@
 # TruLayer AI — TypeScript Demos
 
+[![codecov](https://codecov.io/gh/trulayer/demo-typescript/graph/badge.svg?token=8N9ID6YA4L)](https://codecov.io/gh/trulayer/demo-typescript)
+
 Runnable, end-to-end TypeScript / Node.js examples that show how to
 trace AI applications with the
 [`@trulayer/sdk`](https://www.npmjs.com/package/@trulayer/sdk) package. Every example emits

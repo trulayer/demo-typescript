@@ -63,13 +63,13 @@ jobs:
         working-directory: demo-typescript
         env:
           TRULAYER_DRY_RUN: 'true'
-        run: pnpm test:coverage
+        run: pnpm test
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: demo-typescript/coverage/lcov.info
+          working-directory: demo-typescript
           flags: demo-typescript
           fail_ci_if_error: false
 
