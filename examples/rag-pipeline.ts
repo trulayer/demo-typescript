@@ -3,7 +3,7 @@
  *
  * Pipeline stages (each becomes a span):
  *
- *   1. embed-query       (span_type="default")   — OpenAI text-embedding-3-small
+ *   1. embed-query       (span_type="other")     — OpenAI text-embedding-3-small
  *   2. retrieve-docs     (span_type="retrieval") — cosine similarity in-memory
  *   3. generate-answer   (span_type="llm")       — OpenAI chat.completions
  *
@@ -58,7 +58,7 @@ export async function run(): Promise<string> {
       t.setInput(question)
 
       // ---- 1. embed the query -----------------------------------------
-      const qVec = await t.span('embed-query', 'default', async (s) => {
+      const qVec = await t.span('embed-query', 'other', async (s) => {
         s.setModel('text-embedding-3-small')
         s.setInput(question)
         const v = await embed(openai, question)
