@@ -108,8 +108,7 @@ class TruLayerLangChainHandler extends BaseCallbackHandler {
     const span = new SpanContext(this.trace, 'langchain.llm', 'llm')
     span.setInput(entry.input)
     if (entry.model) span.setModel(entry.model)
-    span.data.error = true
-    span.data.error_message = _err.message
+    span.data.error = _err.message
     span.data.latency_ms = Date.now() - entry.startedAt
     span.data.ended_at = new Date().toISOString()
     this.trace.data.spans.push(span.data)
