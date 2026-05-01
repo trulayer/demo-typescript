@@ -58,7 +58,7 @@ export async function run(): Promise<string> {
       t.setInput(question)
 
       // ---- 1. embed the query -----------------------------------------
-      const qVec = await t.span('embed-query', 'default', async (s) => {
+      const qVec = await t.span('embed-query', 'other', async (s) => {
         s.setModel('text-embedding-3-small')
         s.setInput(question)
         const v = await embed(openai, question)
