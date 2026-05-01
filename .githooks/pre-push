@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# pre-push: runs on every `git push`. Blocks the push on any failure.
+# TRULAYER_DRY_RUN=true prevents live network calls during smoke tests.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+fail() { echo "❌ $*" >&2; exit 1; }
+step() { echo "▶ $*"; }
+
+step "demo-typescript: type check"
+pnpm type-check || fail "type check failed"
+
+step "demo-typescript: smoke tests"
+TRULAYER_DRY_RUN=true pnpm test || fail "tests failed"
+
+echo "✅ pre-push checks passed"
